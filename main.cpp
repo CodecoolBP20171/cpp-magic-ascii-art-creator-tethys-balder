@@ -2,6 +2,7 @@
 #include <vector>
 #include "libs/EasyBMP/EasyBMP.h"
 #include "ArgumentumParser.h"
+#include "AsciiArtErrors.hpp"
 
 void printResult( std::vector<std::vector<int>> list ) {
 
@@ -54,8 +55,15 @@ std::vector<std::vector<int>> convertBmpFile( BMP Input ) {
 int main( int argc, char* argv[] ) {
   
     ArgumentumParser ap;
-    
-    arguments pic = ap.dealingWithArgs(argc, argv);
+    arguments pic;
+    try {
+        pic = ap.dealingWithArgs(argc, argv);
+    }
+    catch (TooFewArguments & e) {}
+    catch (BadArgumentsList & e) {}
+    catch (NotValidFileType & e) {}
+
+
 
     BMP Input;
     Input.ReadFromFile(pic.fileName );
