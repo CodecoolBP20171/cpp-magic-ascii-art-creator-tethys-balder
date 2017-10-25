@@ -1,7 +1,7 @@
 #include <iostream>
 #include <vector>
 #include "libs/EasyBMP/EasyBMP.h"
-
+#include "ArgumentumParser.h"
 
 void printResult( std::vector<std::vector<int>> list ) {
 
@@ -52,10 +52,19 @@ std::vector<std::vector<int>> convertBmpFile( BMP Input ) {
 
 
 int main( int argc, char* argv[] ) {
+  
+    ArgumentumParser ap;
+    
+    arguments pic = ap.dealingWithArgs(argc, argv);
+    std::cout << "File Name: " << pic.fileName << std::endl;
+    std::cout << "File type: " << pic.fileType << std::endl;
+    std::cout << "Color: " << pic.isColor << std::endl;
 
     BMP Input;
     Input.ReadFromFile( argv[1] );
 
     std::vector<std::vector<int>> GrayscaleValueList = convertBmpFile( Input );
     printResult( GrayscaleValueList );
+  
+    return 0;
 }
