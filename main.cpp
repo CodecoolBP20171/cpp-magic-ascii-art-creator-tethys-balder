@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include "libs/EasyBMP/EasyBMP.h"
+#include "libs/lodepng/lodepng.h"
 #include "ArgumentumParser.h"
 #include "AsciiArtErrors.hpp"
 
@@ -51,6 +52,20 @@ std::vector<std::vector<int>> convertBmpFile( BMP Input ) {
     return GrayscaleValueList;
 }
 
+void decodeOneStep(const char* filename)
+{
+    std::vector<unsigned char> image; //the raw pixels
+    unsigned width, height;
+
+    //decode
+    unsigned error = lodepng::decode(image, width, height, filename);
+
+    //if there's an error, display it
+    if(error) std::cout << "decoder error " << error << ": " << lodepng_error_text(error) << std::endl;
+
+    //the pixels are now in the vector "image", 4 bytes per pixel, ordered RGBARGBA..., use it as texture, draw it, ...
+}
+
 
 int main( int argc, char* argv[] ) {
   
@@ -70,6 +85,18 @@ int main( int argc, char* argv[] ) {
 
     std::vector<std::vector<int>> GrayscaleValueList = convertBmpFile( Input );
     printResult( GrayscaleValueList );
-  
+
+    //png
+    std::vector<unsigned char> image; //the raw pixels
+    unsigned width, height;
+    //decode
+    unsigned error = lodepng::decode(image, width, height, "test1.png");
+    //if there's an error, display it
+    if(error) std::cout << "decoder error " << error << ": " << lodepng_error_text(error) << std::endl;
+    std::cout << "height: " << height << std::endl;
+    std::cout << "width: " << width << std::endl;
+    std::cout << image.size();
+
+
     return 0;
 }
