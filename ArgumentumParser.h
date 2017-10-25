@@ -1,12 +1,12 @@
 #ifndef ASCII_ART_CREATOR_ARGUMENTUMPARSER_H
 #define ASCII_ART_CREATOR_ARGUMENTUMPARSER_H
 
-#include <iostream>;
+#include <iostream>
 
-enum fileTypes {BMP, PNG, JPEG, notGiven};
+enum fileTypes {BitMap, PNG, JPEG, notGiven};
 
 struct arguments {
-    std::string fileName;
+    char* fileName;
     fileTypes fileType;
     bool isColor;
 };

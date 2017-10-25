@@ -54,7 +54,7 @@ fileTypes ArgumentumParser::getFileType(std::string type) {
     }
     type = ss.str();
 
-    if (type == "bmp" || type == "bitmap") return BMP;
+    if (type == "bmp" || type == "bitmap") return BitMap;
     if (type == "png") return PNG;
     if (type == "jpg" || type == "jpeg") return JPEG;
     throw NotValidFileType();
