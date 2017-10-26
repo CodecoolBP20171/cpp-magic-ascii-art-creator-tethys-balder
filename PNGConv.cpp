@@ -1,14 +1,5 @@
-#include <cmath>
+
 #include "PNGConv.h"
-
-
-PNGConv::PNGConv( arguments args ) {
-    this->commandArgs = args;
-}
-
-int PNGConv::convertGrey(int red, int green, int blue) {
-    return floor(0.3 * red + 0.59 * green + 0.11 * blue);
-}
 
 PictureContainer PNGConv::loadPicture() {
 
@@ -17,7 +8,6 @@ PictureContainer PNGConv::loadPicture() {
 
     unsigned error = lodepng::decode(image, width, height, commandArgs.fileName);
     if(error) std::cout << "decoder error " << error << ": " << lodepng_error_text(error) << std::endl;
-
 
     PictureContainer GrayscalePicture(height, width);
 

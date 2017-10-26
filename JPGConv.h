@@ -1,20 +1,15 @@
 #ifndef ASCII_ART_CREATOR_JPGCONV_H
 #define ASCII_ART_CREATOR_JPGCONV_H
 
+#include "PictConverter.h"
 
-#include "ArgumentumParser.h";
-#include "PictureContainer.h";"
-
-class JPGConv {
+class JPGConv : PictConverter{
 public:
-    JPGConv( arguments args );
+    explicit JPGConv( arguments args ) : PictConverter(args) {};
     ~JPGConv() = default;
 
-    PictureContainer loadPicture();
+    virtual PictureContainer loadPicture() override;
 
-private:
-    arguments commandArgs;
-    int convertGrey(int red, int green, int blue);
 };
 
 

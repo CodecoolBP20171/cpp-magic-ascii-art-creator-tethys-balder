@@ -1,22 +1,15 @@
 #ifndef ASCII_ART_CREATOR_BMPCONV_H
 #define ASCII_ART_CREATOR_BMPCONV_H
 
+#include "PictConverter.h"
 
-#include "ArgumentumParser.h"
-#include "PictureContainer.h"
-
-class BMPConv {
+class BMPConv : PictConverter {
 
 public:
-    BMPConv(arguments);
+    explicit BMPConv(arguments myArgs) : PictConverter(myArgs){}
     ~BMPConv() = default;
 
-    PictureContainer loadPicture();
-
-private:
-    int convertGrey(int red, int green, int blue);
-
-    arguments commandArgs;
+    virtual PictureContainer loadPicture() override;
 };
 
 

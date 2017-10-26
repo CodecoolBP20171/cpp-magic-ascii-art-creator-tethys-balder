@@ -1,13 +1,6 @@
 #include "BMPConv.h"
 #include "libs/EasyBMP/EasyBMP.h"
 
-int BMPConv::convertGrey(int red, int green, int blue) {
-    return floor(0.3 * red + 0.59 * green + 0.11 * blue);
-}
-
-BMPConv::BMPConv(arguments myArgs) {
-    commandArgs = myArgs;
-}
 
 PictureContainer BMPConv::loadPicture() {
     BMP Input;

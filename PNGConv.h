@@ -1,21 +1,15 @@
 #ifndef ASCII_ART_CREATOR_PNGCONV_H
 #define ASCII_ART_CREATOR_PNGCONV_H
 
-#include "ArgumentumParser.h"
-#include "PictureContainer.h"
 #include "libs/lodepng/lodepng.h"
+#include "PictConverter.h"
 
-class PNGConv {
+class PNGConv : PictConverter {
 public:
-    PNGConv( arguments args );
+    explicit PNGConv( arguments args ) : PictConverter(args) {};
     ~PNGConv() = default;
 
-    PictureContainer loadPicture();
-
-private:
-    int convertGrey(int red, int green, int blue);
-
-    arguments commandArgs;
+    virtual PictureContainer loadPicture() override ;
 };
 
 
