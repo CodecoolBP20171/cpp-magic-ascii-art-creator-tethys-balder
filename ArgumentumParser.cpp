@@ -15,6 +15,12 @@ arguments ArgumentumParser::dealingWithArgs(int argc, char* argv[]) {
     result.fileType = notGiven;
     result.isColor = false;
 
+//    for (int i = 1; i < argc; ++i) {
+//        std::string part = argv[i];
+//        if (part == "-color") result.isColor = true;
+//        else result.fileName = argv[i];
+//    }
+
     int index = 1;
     do {
         std::string part = argv[index];
@@ -44,6 +50,10 @@ arguments ArgumentumParser::dealingWithArgs(int argc, char* argv[]) {
 
     } while( index < argc);
 
+    if (result.fileType == notGiven) {
+        std::string fileName = result.fileName;
+        result.fileType = getFileType(fileName.substr(fileName.size() - 3, fileName.size()));
+    }
 
     return result;
 }
@@ -55,8 +65,8 @@ fileTypes ArgumentumParser::getFileType(std::string type) {
     }
     type = ss.str();
 
-    if (type == "bmp" || type == "bitmap") return BitMap;
+    if (type == "bmp") return BitMap;
     if (type == "png") return PNG;
-    if (type == "jpg" || type == "jpeg") return JPEG;
+    if (type == "jpg") return JPEG;
     throw NotValidFileType();
 }
