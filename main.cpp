@@ -1,36 +1,44 @@
 #include <iostream>
-#include "libs/EasyBMP/EasyBMP.h"
+#include <vector>
 
-int main( int argc, char* argv[]) {
-    if( argc != 2 ) {
-        std::cout << "Usage: ColorBMPtoGrayscale <input_filename> <output_filename>"
-                  << std::endl << std::endl;
-        return 1;
+#include "ArgumentumParser.h"
+#include "AsciiArtErrors.hpp"
+#include "PictureContainer.h"
+
+#include "PNGConv.h"
+#include "BMPConv.h"
+#include "JPGConv.h"
+
+
+int main( int argc, char* argv[] ) {
+  
+    ArgumentumParser ap;
+    arguments cmdArgs;
+    try {
+        cmdArgs = ap.dealingWithArgs(argc, argv);
     }
-// declare and read the bitmap
-    for (int k = 0; k < argc; ++k) {
-        std::cout << argv[k] << std::endl;
+    catch (TooFewArguments & e) { std::cout << e.what(); }
+    catch (BadArgumentsList & e) { std::cout << e.what(); }
+    catch (NotValidFileType & e) { std::cout << e.what(); }
+
+    if (cmdArgs.fileType == BitMap) {
+        BMPConv BMP_Converter(cmdArgs);
+        PictureContainer image = BMP_Converter.loadPicture();
+        image.changePictureSize(2);
+        std::cout << image.getACIIString();
+    } else if (cmdArgs.fileType == PNG) {
+        PNGConv newPNGPicture(cmdArgs);
+        PictureContainer image = newPNGPicture.loadPicture();
+        image.changePictureSize(4);
+        std::cout << image.getACIIString();
+    } else if (cmdArgs.fileType == JPEG) {
+        JPGConv newJPGPicture(cmdArgs);
+        PictureContainer image = newJPGPicture.loadPicture();
+        image.changePictureSize(4);
+        std::cout << image.getACIIString();
+    } else {
+        std::cout << "Unknown file type";
     }
-    BMP Input;
-    Input.ReadFromFile( argv[1] );
-// convert each pixel to grayscale using RGB->YUV
-    for( int j=0 ; j < Input.TellHeight() ; j++)
-    {
-        for( int i=0 ; i < Input.TellWidth() ; i++)
-        {
-            int Temp = (int) floor( 0.299*Input(i,j)->Red +
-                                    0.587*Input(i,j)->Green +
-                                    0.114*Input(i,j)->Blue );
-            ebmpBYTE TempBYTE = (ebmpBYTE) Temp;
-            Input(i,j)->Red = TempBYTE;
-            Input(i,j)->Green = TempBYTE;
-            Input(i,j)->Blue = TempBYTE;
-        }
-    }
-// Create a grayscale color table if necessary
-    if( Input.TellBitDepth() < 16 )
-    { CreateGrayscaleColorTable( Input ); }
-// write the output file
-//    Input.WriteToFile( argv[2] );
+
     return 0;
 }
