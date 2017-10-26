@@ -14,6 +14,8 @@ public:
     PictureContainer loadPicture();
 
 private:
+    int convertGrey(int red, int green, int blue);
+
     arguments commandArgs;
 };
 
