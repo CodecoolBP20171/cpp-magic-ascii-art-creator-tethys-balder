@@ -1,0 +1,10 @@
+#ifndef ASCII_ART_CREATOR_JPGCONV_H
+#define ASCII_ART_CREATOR_JPGCONV_H
+
+
+class JPGConv {
+
+};
+
+
+#endif //ASCII_ART_CREATOR_JPGCONV_H

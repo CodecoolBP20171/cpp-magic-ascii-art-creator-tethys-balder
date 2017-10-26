@@ -8,7 +8,7 @@ set(SOURCE_FILES main.cpp AsciiArtErrors.hpp
         libs/EasyBMP/EasyBMP.cpp libs/EasyBMP/EasyBMP.h
         libs/lodepng/lodepng.h libs/lodepng/lodepng.cpp
         ArgumentumParser.cpp ArgumentumParser.h PictureContainer.cpp PictureContainer.h
-        BMPConv.cpp BMPConv.h PNGConv.cpp PNGConv.h)
+        BMPConv.cpp BMPConv.h PNGConv.cpp PNGConv.h JPGConv.cpp JPGConv.h)
 
 
 add_executable(Ascii_art_creator ${SOURCE_FILES})
