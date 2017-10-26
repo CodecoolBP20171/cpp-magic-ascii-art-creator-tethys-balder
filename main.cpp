@@ -7,8 +7,7 @@
 
 #include "PNGConv.h"
 #include "BMPConv.h"
-
-
+#include "JPGConv.h"
 
 
 int main( int argc, char* argv[] ) {
@@ -18,16 +17,25 @@ int main( int argc, char* argv[] ) {
     try {
         cmdArgs = ap.dealingWithArgs(argc, argv);
     }
-    catch (TooFewArguments & e) {}
-    catch (BadArgumentsList & e) {}
-    catch (NotValidFileType & e) {}
+    catch (TooFewArguments & e) { std::cout << e.what(); }
+    catch (BadArgumentsList & e) { std::cout << e.what(); }
+    catch (NotValidFileType & e) { std::cout << e.what(); }
 
-    BMPConv BMP_Converter(cmdArgs);
-    PictureContainer picture = BMP_Converter.loadPicture();
-
-    PNGConv newPNGPicture(cmdArgs);
-    PictureContainer image = newPNGPicture.loadPicture();
-    std::cout << image.getACIIString();
+    if (cmdArgs.fileType == BitMap) {
+        BMPConv BMP_Converter(cmdArgs);
+        PictureContainer image = BMP_Converter.loadPicture();
+        std::cout << image.getACIIString();
+    } else if (cmdArgs.fileType == PNG) {
+        PNGConv newPNGPicture(cmdArgs);
+        PictureContainer image = newPNGPicture.loadPicture();
+        std::cout << image.getACIIString();
+    } else if (cmdArgs.fileType == JPEG) {
+        JPGConv newJPGPicture(cmdArgs);
+        PictureContainer image = newJPGPicture.loadPicture();
+        std::cout << image.getACIIString();
+    } else {
+        std::cout << "Unknown file type";
+    }
 
     return 0;
 }

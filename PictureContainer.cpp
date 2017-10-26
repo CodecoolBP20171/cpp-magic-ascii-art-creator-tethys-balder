@@ -37,15 +37,15 @@ std::string PictureContainer::getACIIString() {
 
             int valueOfCharacter = getPixel(i, j);
 
-            if      (valueOfCharacter > 226) ASCII += "@";
-            else if (valueOfCharacter > 198) ASCII += "#";
-            else if (valueOfCharacter > 169) ASCII += "8";
-            else if (valueOfCharacter > 141) ASCII += "&";
-            else if (valueOfCharacter > 113) ASCII += "o";
-            else if (valueOfCharacter > 84)  ASCII += ":";
-            else if (valueOfCharacter > 55)  ASCII += "*";
-            else if (valueOfCharacter > 27)  ASCII += ".";
-            else                             ASCII += " ";
+            if      (valueOfCharacter > 226) ASCII += " ";
+            else if (valueOfCharacter > 198) ASCII += ".";
+            else if (valueOfCharacter > 170) ASCII += "*";
+            else if (valueOfCharacter > 142) ASCII += ":";
+            else if (valueOfCharacter > 114) ASCII += "o";
+            else if (valueOfCharacter > 86)  ASCII += "&";
+            else if (valueOfCharacter > 58)  ASCII += "8";
+            else if (valueOfCharacter > 30)  ASCII += "#";
+            else                             ASCII += "@";
         }
         ASCII += "\n";
     }
