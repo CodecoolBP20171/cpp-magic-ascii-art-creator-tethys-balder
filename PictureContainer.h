@@ -16,6 +16,8 @@ public:
 
     void setPixel(int height, int width, int value);
     int getPixel (int height, int width);
+
+    void changePictureSize(int divisor);
   
     std::string getACIIString();
 
@@ -24,6 +26,7 @@ private:
     int height;
     int width;
     std::vector<std::vector<int>> pixels;
+    std::vector<std::vector<int>> newPicture;
 };
 
 
