@@ -2,8 +2,18 @@
 #define ASCII_ART_CREATOR_JPGCONV_H
 
 
-class JPGConv {
+#include "ArgumentumParser.h";
+#include "PictureContainer.h";"
 
+class JPGConv {
+public:
+    JPGConv( arguments args );
+    ~JPGConv() = default;
+
+    PictureContainer loadPicture();
+
+private:
+    arguments commandArgs;
 };
 
 
