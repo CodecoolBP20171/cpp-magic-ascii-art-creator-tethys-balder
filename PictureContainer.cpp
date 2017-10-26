@@ -32,10 +32,13 @@ void PictureContainer::setPixel(int h, int w, int i) {
 std::string PictureContainer::getACIIString() {
     std::string ASCII;
 
+    bool originalPicture = newPicture.empty();
+    int valueOfCharacter = 0;
+
     for (int i = 0; i < height; ++i) {
         for (int j = 0; j < width; ++j) {
 
-            int valueOfCharacter = getPixel(i, j);
+            originalPicture ? valueOfCharacter = getPixel(i, j) : valueOfCharacter = newPicture[i][j];
 
             if      (valueOfCharacter > 226) ASCII += " ";
             else if (valueOfCharacter > 198) ASCII += ".";
@@ -51,5 +54,24 @@ std::string PictureContainer::getACIIString() {
     }
 
     return ASCII;
+}
+
+void PictureContainer::changePictureSize(int divisor) {
+    for (int i = 0; i < height-divisor; i += divisor) {
+        std::vector<int> picture;
+        for (int j = 0; j < width-divisor; j += divisor) {
+            int grey = 0;
+            for (int k = 0; k < divisor; ++k) {
+                for (int l = 0; l < divisor; ++l) {
+                    grey += getPixel(i+k, j+l);
+                }
+            }
+            picture.push_back(grey/(divisor*divisor));
+        }
+        newPicture.push_back(picture);
+        picture.clear();
+    }
+    this->height = newPicture.size();
+    this->width = newPicture[0].size();
 }
 

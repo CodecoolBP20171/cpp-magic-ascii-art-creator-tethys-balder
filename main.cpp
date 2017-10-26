@@ -24,14 +24,17 @@ int main( int argc, char* argv[] ) {
     if (cmdArgs.fileType == BitMap) {
         BMPConv BMP_Converter(cmdArgs);
         PictureContainer image = BMP_Converter.loadPicture();
+        image.changePictureSize(2);
         std::cout << image.getACIIString();
     } else if (cmdArgs.fileType == PNG) {
         PNGConv newPNGPicture(cmdArgs);
         PictureContainer image = newPNGPicture.loadPicture();
+        image.changePictureSize(4);
         std::cout << image.getACIIString();
     } else if (cmdArgs.fileType == JPEG) {
         JPGConv newJPGPicture(cmdArgs);
         PictureContainer image = newJPGPicture.loadPicture();
+        image.changePictureSize(4);
         std::cout << image.getACIIString();
     } else {
         std::cout << "Unknown file type";
