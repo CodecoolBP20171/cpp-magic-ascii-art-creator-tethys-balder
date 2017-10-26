@@ -7,22 +7,19 @@
 class PictureContainer {
 
 public:
-    PictureContainer() = default;
+    PictureContainer(int, int);
     ~PictureContainer() = default;
 
-    void setHeight(size_t);
-    size_t getHeight();
+    int getHeight();
+    int getWidth();
 
-    void setWidth(size_t);
-    size_t getWidth();
-
-    void setPixel(size_t, size_t, char);
-    char getPixel (size_t, size_t);
+    void setPixel(int, int, int);
+    int getPixel (int, int);
 
 private:
-    size_t height;
-    size_t width;
-    std::vector<std::vector <char> > pixels;
+    int height;
+    int width;
+    std::vector<std::vector <int> > pixels;
 };
 
 
