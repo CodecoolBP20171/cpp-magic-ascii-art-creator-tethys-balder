@@ -6,6 +6,10 @@ JPGConv::JPGConv( arguments args ) {
     this->commandArgs = args;
 }
 
+int JPGConv::convertGrey(int red, int green, int blue) {
+    return floor(0.3 * red + 0.59 * green + 0.11 * blue);
+}
+
 PictureContainer JPGConv::loadPicture() {
     size_t size;
     unsigned char *buf;
@@ -48,17 +52,16 @@ PictureContainer JPGConv::loadPicture() {
     int width = decoder.GetWidth();
     PictureContainer GrayscalePicture(height, width);
 
+    int grey;
     for (int i = 0; i < height; ++i) {
-
         for (int j = 0; j < width; ++j) {
-
-            int RGB[3];
-
-            for (int k = 0; k < 3; ++k) {
-                RGB[k] = decoder.GetImage()[3*width*i+3*j+k];
+            int pix_index = 3*width*i+3*j;
+            if (commandArgs.isColor) {
+                grey = convertGrey(decoder.GetImage()[pix_index], decoder.GetImage()[pix_index+1], decoder.GetImage()[pix_index+2]);
+            } else {
+                grey = decoder.GetImage()[pix_index];
             }
-            auto grayScaleValue = (int) floor(0.3 * RGB[0] + 0.59 * RGB[1] + 0.11 * RGB[2]);
-            GrayscalePicture.setPixel(i, j, grayScaleValue);
+            GrayscalePicture.setPixel(i, j, grey);
         }
     }
     return GrayscalePicture;

@@ -14,6 +14,7 @@ public:
 
 private:
     arguments commandArgs;
+    int convertGrey(int red, int green, int blue);
 };
 
 

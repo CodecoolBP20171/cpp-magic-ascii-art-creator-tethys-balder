@@ -44,6 +44,7 @@ arguments ArgumentumParser::dealingWithArgs(int argc, char* argv[]) {
 
     } while( index < argc);
 
+
     return result;
 }
 
