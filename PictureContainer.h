@@ -3,6 +3,7 @@
 
 #include <cstddef>
 #include <vector>
+#include <iostream>
 
 class PictureContainer {
 
@@ -10,19 +11,21 @@ public:
     PictureContainer() = default;
     ~PictureContainer() = default;
 
-    void setHeight(size_t);
-    size_t getHeight();
+    void setHeight(int);
+    int getHeight();
 
-    void setWidth(size_t);
-    size_t getWidth();
+    void setWidth(int);
+    int getWidth();
 
-    void setPixel(size_t, size_t, char);
-    char getPixel (size_t, size_t);
+    void setPixel(int, int, int);
+    int getPixel (int, int);
+
+    std::string getACIIString();
 
 private:
-    size_t height;
-    size_t width;
-    std::vector<std::vector <char> > pixels;
+    int height;
+    int width;
+    std::vector<std::vector<int>> pixels;
 };
 
 
