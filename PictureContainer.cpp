@@ -1,11 +1,16 @@
 #include "PictureContainer.h"
 
-void PictureContainer::setHeight(int hght) {
+PictureContainer::PictureContainer(int hght, int wdth) {
     height = hght;
-}
-
-void PictureContainer::setWidth(int wdth) {
     width = wdth;
+    std::vector<int> tempVector;
+    for (int i = 0; i < height; ++i) {
+        for (int j = 0; j < width; ++j) {
+            tempVector.push_back(0);
+        }
+        pixels.push_back(tempVector);
+        tempVector.clear();
+    }
 }
 
 int PictureContainer::getHeight() {
@@ -47,3 +52,4 @@ std::string PictureContainer::getACIIString() {
 
     return ASCII;
 }
+

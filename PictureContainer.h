@@ -8,19 +8,17 @@
 class PictureContainer {
 
 public:
-    PictureContainer() = default;
+    PictureContainer(int, int);
     ~PictureContainer() = default;
 
-    void setHeight(int);
     int getHeight();
-
-    void setWidth(int);
     int getWidth();
 
     void setPixel(int, int, int);
     int getPixel (int, int);
-
+  
     std::string getACIIString();
+
 
 private:
     int height;
