@@ -1,25 +1,30 @@
 #include "PictureContainer.h"
 
-void PictureContainer::setHeight(size_t hght) {
+PictureContainer::PictureContainer(int hght, int wdth) {
     height = hght;
-}
-
-void PictureContainer::setWidth(size_t wdth) {
     width = wdth;
+    std::vector<int> tempVector;
+    for (int i = 0; i < height; ++i) {
+        for (int j = 0; j < width; ++j) {
+            tempVector.push_back(0);
+        }
+        pixels.push_back(tempVector);
+        tempVector.clear();
+    }
 }
 
-size_t PictureContainer::getHeight() {
+int PictureContainer::getHeight() {
     return height;
 }
 
-size_t PictureContainer::getWidth() {
+int PictureContainer::getWidth() {
     return width;
 }
 
-char PictureContainer::getPixel(size_t h, size_t w) {
+int PictureContainer::getPixel(int h, int w) {
     return pixels[h][w];
 }
 
-void PictureContainer::setPixel(size_t h, size_t w, char c) {
+void PictureContainer::setPixel(int h, int w, int c) {
     pixels[h][w] = c;
 }

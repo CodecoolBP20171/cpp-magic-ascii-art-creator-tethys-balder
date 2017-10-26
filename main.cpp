@@ -1,9 +1,10 @@
 #include <iostream>
 #include <vector>
-#include "libs/EasyBMP/EasyBMP.h"
+
 #include "libs/lodepng/lodepng.h"
 #include "ArgumentumParser.h"
 #include "AsciiArtErrors.hpp"
+#include "BMPConv.h"
 
 void printResult( std::vector<std::vector<int>> list ) {
 
@@ -28,30 +29,6 @@ void printResult( std::vector<std::vector<int>> list ) {
     }
 }
 
-
-std::vector<std::vector<int>> convertBmpFile( BMP Input ) {
-
-    std::vector<std::vector<int>> GrayscaleValueList;
-
-    int height = Input.TellHeight();
-    int width = Input.TellWidth();
-
-    for( int j=0 ; j < height ; ++j ) {
-        std::vector<int> column;
-
-        for( int i=0 ; i < width ; ++i ) {
-            int Temp = (int) floor( 0.299*Input(i,j)->Red + 0.587*Input(i,j)->Green + 0.114*Input(i,j)->Blue );
-            ebmpBYTE TempBYTE = ( ebmpBYTE ) Temp;
-            Input(i,j)->Red = TempBYTE;
-            Input(i,j)->Green = TempBYTE;
-            Input(i,j)->Blue = TempBYTE;
-            column.push_back( Temp );
-        }
-        GrayscaleValueList.push_back( column );
-    }
-    return GrayscaleValueList;
-}
-
 void decodeOneStep(const char* filename)
 {
     std::vector<unsigned char> image; //the raw pixels
@@ -70,21 +47,17 @@ void decodeOneStep(const char* filename)
 int main( int argc, char* argv[] ) {
   
     ArgumentumParser ap;
-    arguments pic;
+    arguments cmdArgs;
     try {
-        pic = ap.dealingWithArgs(argc, argv);
+        cmdArgs = ap.dealingWithArgs(argc, argv);
     }
     catch (TooFewArguments & e) {}
     catch (BadArgumentsList & e) {}
     catch (NotValidFileType & e) {}
 
+    BMPConv BMP_Converter(cmdArgs);
+    PictureContainer picture = BMP_Converter.loadPicture();
 
-
-    BMP Input;
-    Input.ReadFromFile(pic.fileName );
-
-    std::vector<std::vector<int>> GrayscaleValueList = convertBmpFile( Input );
-    printResult( GrayscaleValueList );
 
     //png
     std::vector<unsigned char> image; //the raw pixels
