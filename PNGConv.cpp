@@ -15,9 +15,7 @@ PictureContainer PNGConv::loadPicture() {
     if(error) std::cout << "decoder error " << error << ": " << lodepng_error_text(error) << std::endl;
 
 
-    PictureContainer GrayscalePicture;
-    GrayscalePicture.setHeight( height );
-    GrayscalePicture.setWidth( width );
+    PictureContainer GrayscalePicture(height, width);
 
     for (int i = 0; i < height; ++i) {
 
