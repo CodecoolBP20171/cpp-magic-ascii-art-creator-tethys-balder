@@ -3,6 +3,7 @@
 
 #include <cstddef>
 #include <vector>
+#include <iostream>
 
 class PictureContainer {
 
@@ -15,11 +16,14 @@ public:
 
     void setPixel(int, int, int);
     int getPixel (int, int);
+  
+    std::string getACIIString();
+
 
 private:
     int height;
     int width;
-    std::vector<std::vector <int> > pixels;
+    std::vector<std::vector<int>> pixels;
 };
 
 
