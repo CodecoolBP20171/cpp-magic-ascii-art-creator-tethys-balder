@@ -23,7 +23,7 @@ PictureContainer BMPConv::loadPicture() {
             } else {
                 grey = (int)Input(j,i)->Red;
             }
-            picture.setPixel(i,j,(int)Input(j,i)->Red);
+            picture.setPixel(i,j,grey);
         }
     }
     return picture;
