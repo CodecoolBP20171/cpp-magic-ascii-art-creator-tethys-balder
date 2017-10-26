@@ -6,6 +6,10 @@ PNGConv::PNGConv( arguments args ) {
     this->commandArgs = args;
 }
 
+int PNGConv::convertGrey(int red, int green, int blue) {
+    return floor(0.3 * red + 0.59 * green + 0.11 * blue);
+}
+
 PictureContainer PNGConv::loadPicture() {
 
     std::vector<unsigned char> image; //the raw pixels
@@ -17,17 +21,17 @@ PictureContainer PNGConv::loadPicture() {
 
     PictureContainer GrayscalePicture(height, width);
 
+    int grey;
     for (int i = 0; i < height; ++i) {
-
         for (int j = 0; j < width; ++j) {
 
-            int RGBA[4];
-
-            for (int k = 0; k < 4; ++k) {
-                RGBA[k] = image[4*width*i+4*j+k];
+            if (commandArgs.isColor) {
+                grey = convertGrey(image[4*width*i+4*j], image[4*width*i+4*j +1], image[4*width*i+4*j +2]);
+            } else {
+                grey = image[4*width*i+4*j];
             }
-            auto grayScaleValue = (int) floor(0.3 * RGBA[0] + 0.59 * RGBA[1] + 0.11 * RGBA[2]);
-            GrayscalePicture.setPixel(i, j, grayScaleValue);
+
+            GrayscalePicture.setPixel(i, j, grey);
         }
     }
     return GrayscalePicture;
