@@ -48,9 +48,17 @@ PictureContainer JPGConv::loadPicture() {
     int width = decoder.GetWidth();
     PictureContainer GrayscalePicture(height, width);
 
-    for (int i = 0; i < height; ++i ) {
+    for (int i = 0; i < height; ++i) {
+
         for (int j = 0; j < width; ++j) {
-            GrayscalePicture.setPixel(i, j, decoder.GetImage()[3*width*i + j*3]);
+
+            int RGB[3];
+
+            for (int k = 0; k < 3; ++k) {
+                RGB[k] = decoder.GetImage()[3*width*i+3*j+k];
+            }
+            auto grayScaleValue = (int) floor(0.3 * RGB[0] + 0.59 * RGB[1] + 0.11 * RGB[2]);
+            GrayscalePicture.setPixel(i, j, grayScaleValue);
         }
     }
     return GrayscalePicture;
